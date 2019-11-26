@@ -34,7 +34,8 @@
       $stmt->bindParam(':ativa', $ativa, PDO::PARAM_INT);
       $stmt->bindParam(':estrela', $estrela, PDO::PARAM_INT);
       $titulo = $dados['titulo'];
-      $texto = $dados['texto'];
+			$texto = $dados['texto'];
+			$corFundo = $dados['corFundo'];
       $tags = $dados['tags'];
       $ativa = $dados['ativa'];
       $estrela = $dados['estrela'];
