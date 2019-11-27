@@ -12,22 +12,27 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="assets/css/style.css">
+	<!-- <link rel="stylesheet" href="assets/css/materialize.css"> -->
 	<title><?php echo $title; ?></title>
 </head>
 <body>
 	<div class="container">
-		<a href="cad.php"><button>Novo</button></a>
+		<a href="cad.php" class="waves-effect waves-light btn">Novo</a>
 		<form action="" method="post">
 			<input type="text" placeholder='Digite sua busca'>
 			<input type="submit" value="Buscar">	
 		</form>
 		<?php  	
 			$pdo = Conexao::getInstance();
+
+
 			$consulta = $pdo->query("SELECT * FROM notes;");
+
 			while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) { 
 		?>			
+
 		<div class="card" style="background-color: <?php echo $linha['corFundo'];?>">
 			<div class="container">
 				<div class="card-head"> 
@@ -54,6 +59,9 @@
 			</div>
 		</div> 
     <?php } // fecha o while ?>  
+
+				
+
 	</div> 
 <script>
 	function excluirRegistro(url) {
