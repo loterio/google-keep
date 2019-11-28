@@ -20,42 +20,40 @@
 	<title><?php echo $title; ?></title>
 </head>
 <body>
-	<a href="cad.php" class='btn'>novo</a>
+	<a href="cad.php" class='btn'>novo</a><br>
 	<div class="container">
 		<form method="post">
 			<input type="text" placeholder='Digite sua busca' name='search'>
 			<input type="submit" class='btn center'	value="Buscar">	
-		</form>
+		</form><br>
+	</div>	
+		<div class="row">
 		<?php  	
 			$pdo = Conexao::getInstance();
 			$consulta = $pdo->query("SELECT * FROM notes;");
 			while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) { 
 		?>
 
-		<div class="row">
-			<div class="col s12 m6">
+		
+			<div class="col l4">
 				<div class="card" style="background-color: <?php echo $linha['corFundo'];?>">
 					<div class="card-content white-text">
 						<span class="card-title"><?php echo "#" . $linha['codigo'] . " | " . $linha['titulo'];?></span>
 						<p><?php echo $linha['texto'];?></p>
 						<p><?php echo $linha['tags'];?></p>
-						<p>
-							<?php 
-								if($linha['ativa'] == 1) echo "Ativa: sim | "; else	echo "Ativa: não | ";
-								if($linha['estrela'] == 1) echo "Estrela: sim";	else echo "Estrela: não";
-							?>	
-						</p>
 					</div>
-					<div class="card-action">
-						<a href='cad.php?acao=editar&codigo=<?php echo $linha['codigo'];?>'><i class="material-icons left">create</i></a>
-						<a href="javascript:excluirRegistro('acao.php?acao=excluir&codigo=<?php echo $linha['codigo'];?>')"><i class="material-icons left">delete</i></a>
+					<div class="card-action white-text">
+							<?php 
+								if($linha['ativa'] == 1) echo "<i class='material-icons left'>favorite</i>"; else	echo "<i class='material-icons left'>favorite_border</i>";
+								if($linha['estrela'] == 1) echo "<i class='material-icons left'>star</i>"; else	echo "<i class='material-icons left'>star_border</i>";
+							?>
+						<a href='cad.php?acao=editar&codigo=<?php echo $linha['codigo'];?>'><i class="material-icons right">create</i></a>
+						<a href="javascript:excluirRegistro('acao.php?acao=excluir&codigo=<?php echo $linha['codigo'];?>')"><i class="material-icons right">delete</i></a>
 					</div>
 				</div>
 			</div>
-		</div>
-		
     <?php } // fecha o while ?>  
-	</div> 
+		</div>
 
 <script>
 	function excluirRegistro(url) {

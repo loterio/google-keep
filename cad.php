@@ -42,14 +42,9 @@
 				<label for="titulo">Titulo</label>
 			</div>
 
-			<div class="input-field col s2">
-				<input type="text" name="texto" id="texto" value="<?php if ($acao == "editar") echo $dados['texto']; else echo 0; ?>" class="validate">
-				<label for="codigo">Texto</label>
-			</div>
-
 			<div class="input-field col s12">
         <textarea class="materialize-textarea" required=true placeholder='text' type="text" name="texto" id="texto" cols="20" rows="10" class='validate'><?php if ($acao == "editar") echo $dados['texto']; ?></textarea>
-        <label for="texto">Textarea</label>
+        <label for="texto">Texto</label>
       </div>
 
 			<input type="color" name="corFundo" id="corFundo" value="<?php if ($acao == "editar") echo $dados['corFundo']; ?>"><br>
