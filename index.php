@@ -5,6 +5,8 @@
 	require_once "conf/Conexao.php";
 
 	$title = "Google Keep";
+	$tipoBusca = isset($_POST['tipoBusca']) ? $_POST['tipoBusca'] : null;	
+	$busca = isset($_POST['search']) ? $_POST['search'] : null;
 	
 ?>
 <html lang="en">
@@ -21,14 +23,38 @@
 	<div class="container">
 		<a href="cad.php" class="waves-effect waves-light btn">Novo</a>
 		<form action="" method="post">
-			<input type="text" placeholder='Digite sua busca'>
+			<input type="text" placeholder='Digite sua busca' name='search'><br>
+			<p>
+				<label>
+					<input name="tipoBusca" value="tit" type="radio" <?php if($tipoBusca == "tit") echo 'checked'; ?>/>
+					<span>Título</span>
+				</label>
+			</p>
+			<p>
+				<label>
+					<input name="tipoBusca" value="txt" type="radio" <?php if($tipoBusca == "txt") echo 'checked'; ?>/>
+					<span>Texto</span>
+				</label>
+			</p>
+			<p>
+				<label>
+					<input name="tipoBusca" value="tag" type="radio" <?php if($tipoBusca == "tag") echo 'checked'; ?>/>
+					<span>Tags</span>
+				</label>
+			</p>
 			<input type="submit" value="Buscar">	
 		</form>
 		<?php  	
 			$pdo = Conexao::getInstance();
 
-
-			$consulta = $pdo->query("SELECT * FROM notes;");
+			if ($tipoBusca == 'tit')
+				$consulta = $pdo->query("SELECT * FROM notes WHERE titulo LIKE'%$busca%';");
+			else if ($tipoBusca == 'txt')
+				$consulta = $pdo->query("SELECT * FROM notes WHERE texto LIKE'%$busca%';");	
+			else if ($tipoBusca == 'tag')
+				$consulta = $pdo->query("SELECT * FROM notes WHERE tags LIKE'%$busca%';");
+			else
+				$consulta = $pdo->query("SELECT * FROM notes;");
 
 			while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) { 
 		?>			
